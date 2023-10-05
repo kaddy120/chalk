@@ -1,78 +1,89 @@
 import PropTypes from 'prop-types';
-
-function Input({ name, value, onChange, children }) {
-  return (
-    <div className='form-group'>
-      <label htmlFor=''>{children}</label>
-      <input
-        className='form-control'
-        name={name}
-        value={value}
-        type='text'
-        onChange={onChange}
-      />
-    </div>
-  );
-}
-
-Input.propTypes = {
-  name: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  children: PropTypes.node,
-};
+import Input from './components/Input';
+import InputFile from './components/InputFile';
+import Lexical from './components/lexical';
 
 export default function BioForm(props) {
-  const { bio, handleChange, setAboutMe , aboutMe} = props;
+  const { bio, handleChange, setAboutMe, aboutMe } = props;
   return (
-    <form className='col-md-4 p-4' action=''>
-      <Input name='name' value={bio.name} onChange={handleChange}>
-        Name
-      </Input>
-      <Input name='location' value={bio.location} onChange={handleChange}>
-        Location
-      </Input>
-      <Input name='contact' value={bio.contact} onChange={handleChange}>
-        Phone Number
-      </Input>
-      <Input name='email' value={bio.email} onChange={handleChange}>
-        Email
-      </Input>
-      <Input name='url' value={bio.url} onChange={handleChange}>
-        Personal website
-      </Input>
-      <Input name='url' value={bio.url} onChange={handleChange}>
-        Personal website
-      </Input>
-      <Input
-        name='githubUsername'
-        value={bio.githubUsername}
-        onChange={handleChange}
-      >
-        Github userName
-      </Input>
-      <Input name='linkedIn' value={bio.linkedIn} onChange={handleChange}>
-        LinkedIn
-      </Input>
-      <Input name='twitter' value={bio.twitter} onChange={handleChange}>
-        Twitter
-      </Input>
+    <div>
+      <form className='w-100' action=''>
+        <Input name='firstName' value={bio.firstName} onChange={handleChange}>
+          First Name
+        </Input>
+        <Input name='lastName' value={bio.lastName} onChange={handleChange}>
+          Last Name
+        </Input>
+        <InputFile />
+        <Input name='jobTitle' value={bio.jobTitle} onChange={handleChange}>
+          Wanted Job Title
+        </Input>
+        <Input name='country' value={bio.country} onChange={handleChange}>
+          Country
+        </Input>
+        <Input name='City' value={bio.city} onChange={handleChange}>
+          City
+        </Input>
+        <Input name='tel' type='tel' value={bio.tel} onChange={handleChange}>
+          Phone Number
+        </Input>
+        <Input
+          name='email'
+          type='email'
+          value={bio.email}
+          onChange={handleChange}
+        >
+          Email
+        </Input>
+        <Input name='url' type='url' value={bio.url} onChange={handleChange}>
+          Personal website
+        </Input>
+        <Input
+          name='githubUsername'
+          value={bio.githubUsername}
+          onChange={handleChange}
+        >
+          Github userName
+        </Input>
+        <Input name='linkedIn' value={bio.linkedIn} onChange={handleChange}>
+          LinkedIn
+        </Input>
+        <Input name='twitter' value={bio.twitter} onChange={handleChange}>
+          Twitter
+        </Input>
 
-      <div className='form-group'>
-        <label htmlFor=''>about you</label>
-        <textarea
-          className='form-control'
-          name=''
-          id=''
-          onChange={(e) => {
-            setAboutMe(e.target.value);
-          }}
-          cols={50}
-          rows={5}
-          defaultValue={aboutMe}
-        />
-      </div>
-    </form>
+        <div>
+          <label htmlFor=''>Date of Birth</label>
+          <input name='birthday' type='date' />
+        </div>
+
+        <Input
+          name='drivingLicense'
+          value={bio.twitter}
+          onChange={handleChange}
+        >
+          Driving License
+        </Input>
+        <Input name='nationality' value={bio.twitter} onChange={handleChange}>
+          Nationality
+        </Input>
+        <div className='form-group'>
+          <label htmlFor=''>about you</label>
+          <textarea
+            className='form-control'
+            name=''
+            id=''
+            onChange={(e) => {
+              setAboutMe(e.target.value);
+            }}
+            cols={50}
+            rows={5}
+            defaultValue={aboutMe}
+          />
+        </div>
+      </form>
+      <Lexical />
+    </div>
   );
 }
 

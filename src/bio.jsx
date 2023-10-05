@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
+import { useEditorContext } from './EditorContext';
 
 /* Introduction/Bio name, contacts and about me statement*/
 export default function Bio({ bio, aboutMe }) {
+  const theme = useEditorContext()
+
   return (
     <div>
       <h1 id='name'>{bio.name}</h1>
@@ -12,6 +15,7 @@ export default function Bio({ bio, aboutMe }) {
         <li>{bio.githubUsername}</li>
         <li>{bio.linkedIn}</li>
         <li>{bio.twitter}</li>
+        <li>{theme.name}</li>
       </ul>
       <p id='about-me'>{aboutMe}</p>
     </div>

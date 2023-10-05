@@ -39,5 +39,5 @@ export default function DatedList({ title, itemGroup }) {
 
 DatedList.propTypes = {
   title: PropTypes.string,
-  itemGroup: PropTypes.object,
+  itemGroup: PropTypes.array,
 };

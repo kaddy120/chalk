@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import BioForm from './BioForm';
+import Layers from './components/layers';
 import Page from './Page';
 // import BioForm from './BioForm'
 
@@ -7,14 +8,20 @@ import Page from './Page';
 
 function App() {
   let bioDetails = {
-    name: 'Kaddy Marindi',
-    location: 'South Africa, Limpop',
-    contact: '(+27)799895113',
+    firstName: 'Kaddy',
+    lastName: 'Marindi',
+    jobTitle: 'Teacher',
+    country: 'South Africa',
+    city: 'Polokwane',
+    tel: '(+27)799895113',
     email: 'kaddy120@gmail.com',
     url: 'kaddy120.github.io',
     githubUsername: 'kaddy120',
     linkedIn: 'linked.com/kad.marindi',
     twitter: 'twitter.com/kaddy120',
+    birthday: '',
+    drivingLicense: 'code10',
+    nationality: 'code10',
   };
 
   const [bio, setBio] = useState(bioDetails);
@@ -31,9 +38,18 @@ function App() {
 
   return (
     <>
-      <div className='container flex'>
-        <BioForm bio={bio} handleChange={handleChange} aboutMe={aboutMe} setAboutMe={setAboutMe}/>
-        <Page aboutMe={aboutMe} bio={bio}/>
+      <div className='flex'>
+          <div className='preview flex'>
+
+            <Layers />
+            <BioForm
+              bio={bio}
+              handleChange={handleChange}
+              aboutMe={aboutMe}
+              setAboutMe={setAboutMe}
+            />
+          </div>
+        <Page aboutMe={aboutMe} bio={bio} />
       </div>
     </>
   );

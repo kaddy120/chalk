@@ -1,9 +1,10 @@
-*, *::before, *::after{
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: content-box;
 }
-
 
 // Variable overrides first
 
@@ -32,16 +33,49 @@ $primary: gray;
 }
 
 .line {
-  display: inline-block;
-  border-width: 0;
-  width: 100%;
-  border-bottom: 1px solid black;
 }
 
 .m0 {
   margin-bottom: 0;
 }
 
-h6{
+h6 {
   font-weight: bold;
 }
+
+.node_title {
+  position: relative;
+  // display: block;
+}
+
+.node_title::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px;
+  // width: calc(100% - 100px);
+  background-color: #333;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.preview{
+  width: 50%;
+  // background: red;
+}
+
+.layers{
+  width: 200px;
+  background: lightgray;
+}
+
+.A4{
+   height: 100vh;
+   width: 70.9vh;
+}
+
+.w-100{
+  width: 100%;
+}
+
