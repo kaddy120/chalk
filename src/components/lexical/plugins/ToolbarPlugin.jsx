@@ -252,11 +252,10 @@ function getSelectedNode(selection) {
   }
 }
 
-function BlockOptionsDropdownList({
+function FormatList({
   editor,
   blockType,
   toolbarRef,
-  setShowBlockOptionsDropDown,
 }) {
   const dropDownRef = useRef(null);
 
@@ -271,26 +270,6 @@ function BlockOptionsDropdownList({
     }
   }, [dropDownRef, toolbarRef]);
 
-  useEffect(() => {
-    const dropDown = dropDownRef.current;
-    const toolbar = toolbarRef.current;
-
-    if (dropDown !== null && toolbar !== null) {
-      const handle = (event) => {
-        const target = event.target;
-
-        if (!dropDown.contains(target) && !toolbar.contains(target)) {
-          setShowBlockOptionsDropDown(false);
-        }
-      };
-      document.addEventListener('click', handle);
-
-      return () => {
-        document.removeEventListener('click', handle);
-      };
-    }
-  }, [dropDownRef, setShowBlockOptionsDropDown, toolbarRef]);
-
   const formatParagraph = () => {
     if (blockType !== 'paragraph') {
       editor.update(() => {
@@ -301,33 +280,6 @@ function BlockOptionsDropdownList({
         }
       });
     }
-    setShowBlockOptionsDropDown(false);
-  };
-
-  const formatLargeHeading = () => {
-    if (blockType !== 'h1') {
-      editor.update(() => {
-        const selection = $getSelection();
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createHeadingNode('h1'));
-        }
-      });
-    }
-    setShowBlockOptionsDropDown(false);
-  };
-
-  const formatSmallHeading = () => {
-    if (blockType !== 'h2') {
-      editor.update(() => {
-        const selection = $getSelection();
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createHeadingNode('h2'));
-        }
-      });
-    }
-    setShowBlockOptionsDropDown(false);
   };
 
   const formatBulletList = () => {
@@ -336,7 +288,6 @@ function BlockOptionsDropdownList({
     } else {
       editor.dispatchCommand(REMOVE_LIST_COMMAND);
     }
-    setShowBlockOptionsDropDown(false);
   };
 
   const formatNumberedList = () => {
@@ -345,33 +296,6 @@ function BlockOptionsDropdownList({
     } else {
       editor.dispatchCommand(REMOVE_LIST_COMMAND);
     }
-    setShowBlockOptionsDropDown(false);
-  };
-
-  const formatQuote = () => {
-    if (blockType !== 'quote') {
-      editor.update(() => {
-        const selection = $getSelection();
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createQuoteNode());
-        }
-      });
-    }
-    setShowBlockOptionsDropDown(false);
-  };
-
-  const formatCode = () => {
-    if (blockType !== 'code') {
-      editor.update(() => {
-        const selection = $getSelection();
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createCodeNode());
-        }
-      });
-    }
-    setShowBlockOptionsDropDown(false);
   };
 
   return (
@@ -517,11 +441,10 @@ export default function ToolbarPlugin() {
         <i className='format redo' />
       </button>
       <Divider />
-      <BlockOptionsDropdownList
+      <FormatList
         editor={editor}
         blockType={blockType}
         toolbarRef={toolbarRef}
-        setShowBlockOptionsDropDown={setShowBlockOptionsDropDown}
       />
       <Divider />
       <button

@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { createElement, useState } from 'react';
 import BioForm from './BioForm';
+import ChronologicalEventForm from './components/forms/ChronologicalEventForm';
+import GeneralList from './components/forms/generalList';
 import Layers from './components/layers';
 import Page from './Page';
 // import BioForm from './BioForm'
@@ -7,6 +9,9 @@ import Page from './Page';
 // or, specify which plugins you need:
 
 function App() {
+  const forms = [ChronologicalEventForm, GeneralList, BioForm];
+  const [activeIndex, setActiveIndex] = useState(0);
+
   let bioDetails = {
     firstName: 'Kaddy',
     lastName: 'Marindi',
@@ -36,19 +41,45 @@ function App() {
     });
   }
 
+  function handleClickLayers(e) {
+    e.preventDefault();
+  }
+
   return (
     <>
       <div className='flex'>
-          <div className='preview flex'>
+        <div className='preview flex'>
+          <Layers onClick={handleClickLayers} />
+          {/* <BioForm */}
+          {/*   bio={bio} */}
+          {/*   handleChange={handleChange} */}
+          {/*   aboutMe={aboutMe} */}
+          {/*   setAboutMe={setAboutMe} */}
+          {/* /> */}
+          <div>
+            {createElement(forms[activeIndex], {
+              bio,
+              handleChange,
+              aboutMe,
+              setAboutMe,
+            })}
 
-            <Layers />
-            <BioForm
-              bio={bio}
-              handleChange={handleChange}
-              aboutMe={aboutMe}
-              setAboutMe={setAboutMe}
-            />
+            <button
+              onClick={() => {
+                setActiveIndex(activeIndex - 1);
+              }}
+            >
+              previous
+            </button>
+            <button
+              onClick={() => {
+                setActiveIndex(activeIndex + 1);
+              }}
+            >
+              next
+            </button>
           </div>
+        </div>
         <Page aboutMe={aboutMe} bio={bio} />
       </div>
     </>

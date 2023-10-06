@@ -67,20 +67,6 @@ export default function BioForm(props) {
         <Input name='nationality' value={bio.twitter} onChange={handleChange}>
           Nationality
         </Input>
-        <div className='form-group'>
-          <label htmlFor=''>about you</label>
-          <textarea
-            className='form-control'
-            name=''
-            id=''
-            onChange={(e) => {
-              setAboutMe(e.target.value);
-            }}
-            cols={50}
-            rows={5}
-            defaultValue={aboutMe}
-          />
-        </div>
       </form>
       <Lexical />
     </div>
