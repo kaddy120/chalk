@@ -14,7 +14,7 @@ export default function Editor({ children }) {
   return <Context.Provider value={value}>{children}</Context.Provider>;
 }
 
-export function useEditorContext() {
+export function usePageContenxt() {
   return useContext(Context);
 }
 

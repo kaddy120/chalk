@@ -47,8 +47,11 @@ const editorConfig = {
 
 export default function Editor() {
   return (
-    <LexicalComposer initialConfig={editorConfig}>
+    <LexicalComposer 
+// @ts-ignore
+    initialConfig={editorConfig}>
       <div className="editor-container">
+        <h5>Description</h5>
         <ToolbarPlugin />
         <div className="editor-inner">
           <RichTextPlugin

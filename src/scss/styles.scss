@@ -60,22 +60,28 @@ h6 {
   left: 0;
 }
 
-.preview{
+.preview {
   width: 50%;
-  // background: red;
 }
 
-.layers{
+.layers {
   width: 200px;
   background: lightgray;
 }
 
-.A4{
-   height: 100vh;
-   width: 70.9vh;
+.layers--item {
+  cursor: move;
 }
 
-.w-100{
+.layers--item.over {
+  border: 3px dotted #666;
+}
+
+.A4 {
+  height: 100vh;
+  width: 70.9vh;
+}
+
+.w-100 {
   width: 100%;
 }
-

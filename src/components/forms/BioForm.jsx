@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import Input from './components/Input';
-import InputFile from './components/InputFile';
-import Lexical from './components/lexical';
+import Input from './Input';
+import InputFile from './InputFile';
+import Lexical from '../lexical';
 
 export default function BioForm(props) {
   const { bio, handleChange, setAboutMe, aboutMe } = props;

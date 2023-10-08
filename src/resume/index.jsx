@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import Bio from './bio';
+import Bio from './Bio';
 import DatedList from './DatedList';
 import { defaultResume } from './defaultResume.config';
-import EditorContext from './EditorContext';
 import Generic from './Generic';
+import PageContext from './ResumeContext';
 
 function Page({ bio, aboutMe }) {
   const list = defaultResume.genericItems.skills;
@@ -11,7 +11,7 @@ function Page({ bio, aboutMe }) {
   const itemGroup = defaultResume.datedItems.education;
 
   return (
-    <EditorContext>
+    <PageContext>
       <div className='preview'>
         <div className='A4 py-4 px-3 mx-auto component'>
           <Bio bio={bio} aboutMe={aboutMe} />
@@ -20,7 +20,7 @@ function Page({ bio, aboutMe }) {
           <DatedList itemGroup={itemGroup} title='Education' />
         </div>
       </div>
-    </EditorContext>
+    </PageContext>
   );
 }
 

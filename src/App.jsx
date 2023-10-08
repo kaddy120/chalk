@@ -1,15 +1,15 @@
 import { createElement, useState } from 'react';
-import BioForm from './BioForm';
-import ChronologicalEventForm from './components/forms/ChronologicalEventForm';
+import BioForm from './components/forms/BioForm';
+import createChronoOccupationForm, { EducationForm, EmploymentForm } from './components/forms/ChronologicalEventForm';
 import GeneralList from './components/forms/generalList';
-import Layers from './components/layers';
-import Page from './Page';
+import Layers from './components/layers/layers';
+import Page from './resume';
 // import BioForm from './BioForm'
 
 // or, specify which plugins you need:
 
 function App() {
-  const forms = [ChronologicalEventForm, GeneralList, BioForm];
+  const forms = [EducationForm, EmploymentForm, GeneralList, BioForm];
   const [activeIndex, setActiveIndex] = useState(0);
 
   let bioDetails = {

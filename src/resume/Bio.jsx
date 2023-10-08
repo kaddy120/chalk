@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
-import { useEditorContext } from './EditorContext';
+import { usePageContenxt } from './ResumeContext';
 
-/* Introduction/Bio name, contacts and about me statement*/
 export default function Bio({ bio, aboutMe }) {
-  const theme = useEditorContext()
+  const theme = usePageContenxt()
 
   return (
     <div>

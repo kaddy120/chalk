@@ -29,6 +29,7 @@ const Layers = ({ onClick }) => {
   }
 
   function handleDragOver(e) {
+    e.dataTransfer.dropEffect = 'move';
     e.preventDefault();
     return false;
   }
