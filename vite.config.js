@@ -21,7 +21,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
-      '~icons': path.resolve(__dirname, 'public/icons'),
+      '~icons': path.resolve(__dirname, 'src/assets/icons'),
     },
   },
   server: {
