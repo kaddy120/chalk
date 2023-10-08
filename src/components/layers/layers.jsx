@@ -1,11 +1,22 @@
 import PropTypes from 'prop-types';
+import { useRef } from 'react';
 
 /*
  * Toggle hide
+ * The layer should affect how the resume is rendered.
  * */
 
 const Layers = ({ onClick }) => {
-  const layers = ['personal', 'education', 'skills', 'experince', 'project'];
+  const ulRef = useRef(null);
+
+  const layers = [
+    { name: 'personal', visible: true },
+    { name: 'education', visible: true },
+    { name: 'skills', visible: true },
+    { name: 'experince', visible: true },
+    { name: 'project', visible: true },
+  ];
+
   let dragSrcEl;
 
   function handleDragStart(e) {
@@ -45,20 +56,47 @@ const Layers = ({ onClick }) => {
   function handleDrop(e) {
     e.stopPropagation(); // stops the browser from redirecting.
 
+    let listNodes = ulRef.current.childNodes;
     if (dragSrcEl !== e.target) {
-      dragSrcEl.innerHTML = e.target.innerHTML;
+      // dragSrcEl.innerHTML = e.target.innerHTML;
+
+      const srcIndex = Number(dragSrcEl.getAttribute('data-index'))
+      const targetIndex = Number(e.target.getAttribute('data-index'))
+      if (srcIndex > targetIndex) {
+        // move every element down up source index.
+        // a function to shift elements of array by 1 from start index to end index.
+        shiftElementsDown(listNodes, targetIndex, srcIndex);
+      } else {
+        // move things up to source index.
+        console.log('listNode:', listNodes)
+        shiftElementsUp(listNodes, srcIndex, targetIndex);
+      }
       e.target.innerHTML = e.dataTransfer.getData('text/html');
     }
-
     return false;
+  }
+
+  function shiftElementsDown(listNodes, startIndex, endIndex) {
+    // move every element down up source index.
+    // a function to shift elements of array by 1 from start index to end index.
+    for (let i = endIndex; i > startIndex; i--) {
+      listNodes[i].innerHTML = listNodes[i - 1]?.innerHTML;
+    }
+  }
+
+  function shiftElementsUp(listNodes, startIndex, endIndex) {
+    for (let i = startIndex; i < endIndex; i++) {
+      listNodes[i].innerHTML = listNodes[i + 1]?.innerHTML;
+    }
   }
 
   return (
     <div className='layers'>
-      <ul>
+      <ul ref={ulRef}>
         {layers.map((layer, index) => {
           return (
             <li
+              data-index={index}
               draggable='true'
               className='layers--item'
               onClick={onClick}
@@ -71,7 +109,7 @@ const Layers = ({ onClick }) => {
               onDrop={handleDrop}
             >
               {/* <a href=''> */}
-              {layer}
+              {layer.name} {layer.visible ? 'on' : 'off'}
               {/* </a> */}
             </li>
           );
@@ -84,4 +122,5 @@ const Layers = ({ onClick }) => {
 Layers.propTypes = {
   onClick: PropTypes.func,
 };
+
 export default Layers;
