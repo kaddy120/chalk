@@ -1,10 +1,40 @@
 {
-  "name": "create-cv",
+  "name": "chalk",
   "private": true,
   "version": "0.0.0",
+  "description": "A web application for creating resumes for developers",
+  "author": {
+    "name": "Kaddy",
+    "email": "kad.marindi@gmail.com",
+    "url": "https://kaddy120.github.io/"
+  },
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kaddy120/chalk/issues"
+  },
+  "keywords": [
+    "resume creator",
+    "developer",
+    "web",
+    "application",
+    "react",
+    "node",
+    "express",
+    "mongodb",
+    "mongoose",
+    "sass",
+    "vite",
+    "javascript",
+    "html",
+    "css"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaddy120/chalk.git"
   },
   "devDependencies": {},
   "workspaces": [

@@ -14,8 +14,12 @@
     "type": "git",
     "url": "git+https://github.com/kaddy120/chalk.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Kaddy",
+    "email": "kad.marindi@gmail.com",
+    "url": "https://kaddy120.github.io/"
+  },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kaddy120/chalk/issues"
   },
