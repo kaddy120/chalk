@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import Lexical from '../lexical';
 import Input from './Input';
 
@@ -88,8 +89,28 @@ function createChronoOccupationForm(config) {
   return Form;
 }
 
-export const EducationForm = createChronoOccupationForm(config.education)
-export const EmploymentForm  = createChronoOccupationForm(config.employement)
+export const EmploymentForm = createChronoOccupationForm(config.employement);
+const SchoolForm = createChronoOccupationForm(config.education);
+
+export function EducationForm(props) {
+  const [schoolFormList, setSchoolFormList] = useState([SchoolForm]);
+  function addSchoolForm(e) {
+    e.preventDefault();
+    setSchoolFormList([...schoolFormList, SchoolForm]);
+  }
+
+  return (
+    <div>
+      <ul>
+        {schoolFormList.map((Form, index) => {
+          // The reason I'm putting in the list is so that i 
+          // can easily drag you around. 
+          return <li key={index}><Form {...props} /></li>;
+        })}
+        <button onClick={addSchoolForm}>Add</button>
+      </ul>
+    </div>
+  );
+}
 
 export default createChronoOccupationForm;
-

@@ -1,6 +1,9 @@
 import { createElement, useState } from 'react';
 import BioForm from './components/forms/BioForm';
-import createChronoOccupationForm, { EducationForm, EmploymentForm } from './components/forms/ChronologicalEventForm';
+import createChronoOccupationForm, {
+  EducationForm,
+  EmploymentForm,
+} from './components/forms/ChronologicalEventForm';
 import GeneralList from './components/forms/generalList';
 import Layers from './components/layers/layers';
 import Page from './resume';
@@ -9,7 +12,18 @@ import Page from './resume';
 // or, specify which plugins you need:
 
 function App() {
-  const forms = [EducationForm, EmploymentForm, GeneralList, BioForm];
+  // The order of the form should corrospond to layout layers
+  // and the order of the layers should also dictate the order of
+  // the resume
+
+  const forms = [
+    { name: 'Personal', visible: true, render: BioForm },
+    { name: 'Education', visible: true, render: EducationForm },
+    { name: 'Emplyoment', visible: true, render: EmploymentForm },
+    { name: 'Skills', visible: true, render: GeneralList },
+    { name: 'Project', visible: true, render: EducationForm },
+  ];
+
   const [activeIndex, setActiveIndex] = useState(0);
 
   let bioDetails = {
@@ -41,15 +55,17 @@ function App() {
     });
   }
 
-  function handleClickLayers(e) {
+  function selectForm(e) {
     e.preventDefault();
+    let index = e.target.getAttribute('data-index');
+    setActiveIndex(Number(index));
   }
 
   return (
     <>
       <div className='flex'>
         <div className='preview flex'>
-          <Layers onClick={handleClickLayers} />
+          <Layers layers={forms} onSelect={selectForm} />
           {/* <BioForm */}
           {/*   bio={bio} */}
           {/*   handleChange={handleChange} */}
@@ -57,13 +73,13 @@ function App() {
           {/*   setAboutMe={setAboutMe} */}
           {/* /> */}
           <div>
-            {createElement(forms[activeIndex], {
+            {/* display a form */}
+            {createElement(forms[activeIndex].render, {
               bio,
               handleChange,
               aboutMe,
               setAboutMe,
             })}
-
             <button
               onClick={() => {
                 setActiveIndex(activeIndex - 1);

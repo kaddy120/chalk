@@ -6,16 +6,9 @@ import { useRef } from 'react';
  * The layer should affect how the resume is rendered.
  * */
 
-const Layers = ({ onClick }) => {
+const Layers = ({ onSelect, layers }) => {
   const ulRef = useRef(null);
-
-  const layers = [
-    { name: 'personal', visible: true },
-    { name: 'education', visible: true },
-    { name: 'skills', visible: true },
-    { name: 'experince', visible: true },
-    { name: 'project', visible: true },
-  ];
+  // I don't know, but i need some way to indicate the arrangement of the layers.
 
   let dragSrcEl;
 
@@ -60,15 +53,15 @@ const Layers = ({ onClick }) => {
     if (dragSrcEl !== e.target) {
       // dragSrcEl.innerHTML = e.target.innerHTML;
 
-      const srcIndex = Number(dragSrcEl.getAttribute('data-index'))
-      const targetIndex = Number(e.target.getAttribute('data-index'))
+      const srcIndex = Number(dragSrcEl.getAttribute('data-index'));
+      const targetIndex = Number(e.target.getAttribute('data-index'));
       if (srcIndex > targetIndex) {
         // move every element down up source index.
         // a function to shift elements of array by 1 from start index to end index.
         shiftElementsDown(listNodes, targetIndex, srcIndex);
       } else {
         // move things up to source index.
-        console.log('listNode:', listNodes)
+        console.log('listNode:', listNodes);
         shiftElementsUp(listNodes, srcIndex, targetIndex);
       }
       e.target.innerHTML = e.dataTransfer.getData('text/html');
@@ -99,7 +92,6 @@ const Layers = ({ onClick }) => {
               data-index={index}
               draggable='true'
               className='layers--item'
-              onClick={onClick}
               key={index}
               onDragStart={handleDragStart}
               onDragEnd={handleDragEnd}
@@ -109,7 +101,10 @@ const Layers = ({ onClick }) => {
               onDrop={handleDrop}
             >
               {/* <a href=''> */}
-              {layer.name} {layer.visible ? 'on' : 'off'}
+              <button data-index={index} onClick={onSelect}>
+                {layer.name}
+              </button>{' '}
+              {layer.visible ? 'on' : 'off'}
               {/* </a> */}
             </li>
           );
@@ -120,7 +115,13 @@ const Layers = ({ onClick }) => {
 };
 
 Layers.propTypes = {
-  onClick: PropTypes.func,
+  onSelect: PropTypes.func,
+  layers: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      visible: PropTypes.bool,
+    })
+  ),
 };
 
 export default Layers;

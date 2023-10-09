@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
 export function SectionTitle({ children }) {
-
   return (
     <div className='node_title flex'>
       <h3 className='m0'>
