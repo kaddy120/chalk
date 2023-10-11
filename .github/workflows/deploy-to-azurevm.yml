@@ -16,18 +16,18 @@ jobs:
     - name: Setting up SSH
       run: |
         mkdir -p ~/.ssh && touch ~/.ssh/known_hosts
-        ssh-keyscan -H $VM_IP_ADDRESS >> ~/.ssh/known_hosts
+        ssh-keyscan -H 52.146.92.120 >> ~/.ssh/known_hosts
         eval "$(ssh-agent -s)"
         ssh-add <(echo "$SSH_PRIVATE_KEY")
 
     - name: SSH into VM and Pull Code
       run: |
-        ssh azureuser@$VM_IP_ADDRESS "cd $APP_PATH && git pull"
+        ssh azureuser@52.146.92.120 "cd $APP_PATH && git pull"
 
     - name: Start Application
       run: |
-        ssh azureuser@$VM_IP_ADDRESS "cd $APP_PATH && npm install --production"
-        ssh azureuser@$VM_IP_ADDRESS "cd $APP_PATH && npm start -w server"
+        ssh azureuser@52.146.92.120 "cd $APP_PATH && npm install --production"
+        ssh azureuser@52.146.92.120 "cd $APP_PATH && npm start -w server"
         # scp -r ./* azureuser@52.146.92.120:$APP_PATH
 
       env:
