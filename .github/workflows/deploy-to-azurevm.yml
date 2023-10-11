@@ -35,6 +35,6 @@ jobs:
 
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        VM_IP_ADDRESS: 52.146.92.120
-        APP_PATH: /home/azureuser/myExpressApp
+        VM_IP_ADDRESS: "52.146.92.120"
+        APP_PATH: "/home/azureuser/myExpressApp"
 
