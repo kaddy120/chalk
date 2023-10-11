@@ -1,0 +1,26 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Dependencies
+      run: npm install  # Adjust for your project
+
+    - name: Deploy to Azure VM
+      run: |
+        ssh-keyscan -H  52.146.92.12 >> ~/.ssh/known_hosts
+        eval "$(ssh-agent -s)"
+        ssh-add <(echo "$SSH_PRIVATE_KEY")
+        scp -r ./* azureuser@52.146.92.12:/home/azureuser/myExpressApp
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
