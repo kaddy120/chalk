@@ -18,9 +18,10 @@ jobs:
 
     - name: Deploy to Azure VM
       run: |
-        ssh-keyscan -H  52.146.92.12 >> ~/.ssh/known_hosts
+        ssh-keyscan -H  52.146.92.120 >> ~/.ssh/known_hosts
         eval "$(ssh-agent -s)"
         ssh-add <(echo "$SSH_PRIVATE_KEY")
-        scp -r ./* azureuser@52.146.92.12:/home/azureuser/myExpressApp
+        scp -r ./* azureuser@52.146.92.120:/home/azureuser/myExpressApp
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
