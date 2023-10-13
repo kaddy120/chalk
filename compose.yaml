@@ -17,6 +17,12 @@ services:
     networks:
       - my-network
 
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
   #
   # backend:
   #   build:
