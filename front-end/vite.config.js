@@ -20,11 +20,13 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '~bootstrap': path.resolve(__dirname,'..', 'node_modules/bootstrap'),
+      '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
+      // '~bootstrap': path.resolve(__dirname,'..', 'node_modules/bootstrap'),
       '~icons': path.resolve(__dirname, 'src/assets/icons'),
     },
   },
   server: {
-    port: 8080,
+    port: 5000,
+    host: true,
   },
 });
