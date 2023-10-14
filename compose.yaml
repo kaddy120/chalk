@@ -2,48 +2,43 @@
 version: '3.1'
 
 services:
-
   mongo:
     image: mongo:latest
     restart: always
-    ports:
-      - 27017:27017
+    # ports:
+    #   - 27017:27017
+    expose: 
+      - 27017
     volumes:
       - dbdata6:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
-    networks:
-      - my-network
 
   frontend:
     build:
       context: ./front-end
+      target: dev
       dockerfile: Dockerfile
     ports:
-      - "80:80"
-  #
-  # backend:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "3000:3000"
-  #   environment:
-  #     MONGODB_URI: mongodb://root:example@mongodb:27017/mydb
-  #   depends_on:
-  #     - mongodb
-  #
-  #   frontend:
-  #     build:
-  #       context: ./frontend
-  #       dockerfile: Dockerfile
-  #     ports:
-  #       - "80:80"
+      - "5000:5000"
+    volumes:
+      - ./front-end/src/:/usr/src/app/src
+
+  server:
+    build:
+      context: ./server
+      target: dev
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      MONGODB_URI: mongodb://root:example@mongo:27017
+    depends_on:
+      - mongo
+    volumes:
+      - ./server/src:/usr/src/app/src
 
 volumes:
   dbdata6:
-
-networks:
-  my-network:
