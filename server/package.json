@@ -4,9 +4,9 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon --exec 'node --inspect ./bin/www'",
+    "dev": "nodemon --exec 'node --inspect ./src/bin/www'",
     "test": "jest",
-    "start": "node ./bin/www"
+    "start": "node ./src/bin/www"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/kaddy120/chalk#readme",
   "dependencies": {
+    "@types/node": "^20.8.6",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.3.1",

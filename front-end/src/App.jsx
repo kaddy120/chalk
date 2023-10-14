@@ -27,7 +27,7 @@ function App() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   let bioDetails = {
-    firstName: 'Kaddy',
+    firstName: 'Tebogo',
     lastName: 'Marindi',
     jobTitle: 'Teacher',
     country: 'South Africa',

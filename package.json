@@ -36,7 +36,6 @@
     "type": "git",
     "url": "git+https://github.com/kaddy120/chalk.git"
   },
-  "devDependencies": {},
   "workspaces": [
     "server",
     "front-end"
