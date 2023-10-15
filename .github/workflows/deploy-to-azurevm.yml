@@ -32,7 +32,5 @@ jobs:
       run: |
         eval "$(ssh-agent -s)"
         ssh-add <(echo "$SSH_PRIVATE_KEY")
-        ssh azureuser@$VM_IP_ADDRESS "cd $APP_PATH && /home/azureuser/.nvm/versions/node/v20.8.0/bin/npm install --production"
-        ssh azureuser@$VM_IP_ADDRESS "cd $APP_PATH && /home/azureuser/.nvm/versions/node/v20.8.0/bin/node start -w server"
-        # scp -r ./* azureuser@$VM_IP_ADDRESS:$APP_PATH
-
+        # ssh azureuser@$VM_IP_ADDRESS "cd $APP_PATH && npm install --production"
+        # ssh azureuser@$VM_IP_ADDRESS "cd $APP_PATH && node start -w server"
