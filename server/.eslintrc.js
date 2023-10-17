@@ -34,5 +34,16 @@ module.exports = {
     'jest/prefer-to-have-length': 'warn',
     'jest/valid-expect': 'error',
     'no-param-reassign': ['error', { props: false }],
+    'no-underscore-dangle': ['error', { allow: ['_json'] }],
+    'comma-dangle': [
+      'error',
+      {
+        arrays: 'always-multiline',
+        objects: 'always-multiline',
+        imports: 'never',
+        exports: 'never',
+        functions: 'never',
+      },
+    ],
   },
 };
