@@ -6,6 +6,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const methodOverride = require('method-override');
 const config = require('./config/passport');

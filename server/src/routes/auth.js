@@ -4,33 +4,40 @@ const passport = require('passport');
 const router = express.Router();
 
 router.get(
-  '/auth/github',
+  '/github',
   passport.authenticate('github', { scope: ['user:email'] })
 );
 
 router.get(
-  '/auth/github/callback',
+  '/github/callback',
   passport.authenticate('github', {
     failureRedirect: 'http://localhost:5000',
   }),
   (req, res) => {
     // Successful authentication, redirect to the user's profile or dashboard
-    res.redirect('/');
+    res.redirect('http://localhost:5000/');
   }
 );
 
-router.get(
-  '/auth/google',
-  passport.authenticate('google', { scope: ['profile'] })
-);
+router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
 
 router.get(
-  '/auth/google/callback',
+  '/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.redirect('http://localhost:5000/');
   }
 );
+
+router.get('/logout', (req, res, next) => {
+  req.logout((err) => {
+    if (err) next(err);
+  });
+  req.session.destroy((err) => {
+    if (err) next(err);
+  });
+  res.redirect('http://localhost:5000/');
+});
 
 module.exports = router;
