@@ -20,29 +20,33 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(
-  session({
-    secret: 'your-secret-key',
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+
+const sess = {
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true,
+  store: MongoStore.create({
+    mongoUrl:
+      process.env.MONGODB_URI || 'mongodb://root:example@localhost:27017',
+    ttl: 14 * 24 * 60 * 60, // = 14 days. Default
+  }),
+};
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1);
+  sess.cookie.secure = true;
+} else {
+  console.log('Not in production');
+}
+app.use(session(sess));
 app.set('view engine', 'ejs');
 app.use(methodOverride());
+
 config(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-
-passport.deserializeUser((obj, done) => {
-  done(null, obj);
-});
-
 app.use('/', require('./routes/index'));
-app.use('/', require('./routes/auth'));
+app.use('/auth/', require('./routes/auth'));
 
 app.use('/users/', require('./routes/users'));
 app.use('/employees/', require('./routes/employees'));
