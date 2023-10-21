@@ -11,11 +11,19 @@ router.get(
 router.get(
   '/github/callback',
   passport.authenticate('github', {
-    failureRedirect: 'http://localhost:5000',
+    failureRedirect: 'http://localhost:5000/login',
+    successRedirect: 'http://localhost:5000',
+    session: true,
   }),
   (req, res) => {
     // Successful authentication, redirect to the user's profile or dashboard
-    res.redirect('http://localhost:5000/');
+    req.login(req.user, (err) => {
+      if (err) {
+        // Handle login error
+      }
+      res.status(200).json({ message: 'User logged in' });
+      // res.redirect('https://www.example.com/');
+    });
   }
 );
 
@@ -23,10 +31,13 @@ router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
 
 router.get(
   '/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', {
+    failureRedirect: '/login',
+    successRedirect: 'http://localhost:5000',
+  }),
   (req, res) => {
-    // Successful authentication, redirect home.
-    res.redirect('http://localhost:5000/');
+    console.log('User: ', req.user);
+    res.send('Thank you for signing in!');
   }
 );
 

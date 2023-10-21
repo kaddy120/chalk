@@ -1,77 +1,53 @@
-const cors = require('cors');
-const createError = require('http-errors');
-require('dotenv').config();
 const express = require('express');
-const path = require('path');
+const morgan = require('morgan');
+const helmet = require('helmet');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+require('dotenv').config();
+const cookieSession = require('cookie-session');
 const session = require('express-session');
-const MongoStore = require('connect-mongo');
-const passport = require('passport');
-const methodOverride = require('method-override');
-const config = require('./config/passport');
 
-require('./db');
+// require('./auth/passport');
+require('./auth/passportGoogleSSO');
+require('./auth/passportGithubSSO');
+
+// require("./models/user");
+
+const passport = require('passport');
+const middlewares = require('./middlewares');
+const api = require('./api');
 
 const app = express();
 
-// configure Express
-app.use(cors());
-app.use(logger('dev'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use(morgan('dev'));
+app.use(helmet());
+app.use(cors({ origin: 'http://localhost:5000', credentials: true }));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+
 app.use(cookieParser());
-
-const sess = {
-  secret: 'your-secret-key',
+app.use(session({
+  secret: 'keyboard cat',
   resave: false,
-  saveUninitialized: true,
-  store: MongoStore.create({
-    mongoUrl:
-      process.env.MONGODB_URI || 'mongodb://root:example@localhost:27017',
-    ttl: 14 * 24 * 60 * 60, // = 14 days. Default
-  }),
-};
-if (app.get('env') === 'production') {
-  app.set('trust proxy', 1);
-  sess.cookie.secure = true;
-} else {
-  console.log('Not in production');
-}
-app.use(session(sess));
-app.set('view engine', 'ejs');
-app.use(methodOverride());
+  saveUninitialized: false,
+  cookie: { secure: false }
+}));
 
-config(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', require('./routes/index'));
-app.use('/auth/', require('./routes/auth'));
-
-app.use('/users/', require('./routes/users'));
-app.use('/employees/', require('./routes/employees'));
-
-app.delete('/articles/:articleId/comment', (req, res, next) => {
-  const { articleId } = req.params;
-  const comments = [];
-  res.json(comments);
+app.get('/', (req, res) => {
+  res.json({
+    message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄',
+  });
 });
 
-// catch 404 and forward to error handler
-app.use((req, res, next) => {
-  console.log(req);
-  next(createError(404));
-});
+app.use('/api/v1', api);
 
-// error handler
-app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error pag
-  res.status(err.status || 500).json({ message: err.message });
-});
+app.use(middlewares.notFound);
+app.use(middlewares.errorHandler);
 
 module.exports = app;
