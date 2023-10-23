@@ -11,14 +11,12 @@ When this web application is complete, you will easily be able to:
 
 ## Getting started
 
+Clone the source code to your machine:
+
 ```bash
  $ git clone https://github.com/kaddy120/chalk  && cd chalk
 ```
-
-### Development
-
-### Running the code
-
+The source code for app is arranged in the following monolithic structure.
 . </br>
 ├── server/ </br>
 ├── front-end/ </br>
@@ -26,9 +24,13 @@ When this web application is complete, you will easily be able to:
 ├── compose.yaml </br>
 └── README.md  </br>
 
+Where the `server/` directory has the code for the RESTful API that is
+written in `javaScript` using `nodejs` and `express.js` framework. And the
+`front-end/` uses `react.js`.
 
-For development, you can use Docker or develop in your machine. 
+<!-- ### Running the code -->
 
+For development, you can either use `Docker` or develop in your machine. 
 
 ### Server Setup
 
@@ -81,7 +83,9 @@ If you intent to use mongoDB with docker, we have already configured it. You can
  $ docker compose up -d mongo
 ```
 
-#### Installation and running
+### Installation and running
+
+#### Server
 To install the application dependencies and start the server, run: 
 
 ```bash
@@ -96,7 +100,7 @@ Test if you have configured the app's OAuth correctly by opening the URLs below 
 
 When you successfully login, you will get redirect to your frontend at `http://localhost:5000`
 
-### front-end
+#### front-end
 Go to the front-end directory:
 ```
  $ cd front-end
@@ -110,24 +114,22 @@ To install the application dependencies and start the front-end, run:
 
 The front-end is listening at `http://localhost:5000`.
 
-#### Using Docker
-Running the code in docker is quite straight forward, but you first have to
-ensure that you have docker running in your machine.
+### Using Docker
+Running the code in `Docker` is quite straight forward, but you must have `Docker` installed in your machine.
 
+Run the following command in the project root directory: 
 ```bash
  $ docker compose up -d 
 ```
 
- The above command creates three containers which are running `mongoDB`,
-`frontend`, and `backend server`.
+ The above command starts three containers which are running `mongoDB`, `frontend`, and `backend server`, respectively.
 
-Verify that the mentioned containers are running using:
+Verify that the mentioned containers are running by using:
 ```
  $ docker ps
 ```
 
-In case you don't want to run all this service using docker, you can run
-selected images. For instance, only `mongo` and `frontend`, run:
+In case you don't want to run all these services using docker, you can run selected images. For instance, only `mongo` and `frontend`, using:
 
 ```bash
  $ docker compose up -d mongo frontend
@@ -138,13 +140,14 @@ If you want to rebuild the image, use `--build` flag.
 To see the output log from the container, run
 
 ```
- docker logs -f <mongo|frontend|server> 
+ docker logs -f <container ID> 
 ```
 
+## Similar sites: 
+This web application will require some time to be production-ready. In the meantime, you can explore other resume creation applications; however, note that most of them come with a price tag.
 
-### Running in production 
-
-SSL certificate
-
-
-## Similar site
+1. [Resume.io](https://resume.io/)
+1. [Zety](https://zety.com/)
+1. [Resume Genius](https://resumegenius.com/)
+1. [Wepik](https://wepik.com/templates/resumes)
+1. [My perfect Resume](https://www.myperfectresume.com/)
